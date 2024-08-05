@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { firestore } from '@/firebase';
 import { Box, Modal, Typography, Stack, Button, TextField } from '@mui/material';
 import { collection, query, getDocs, doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
+
+const firestore = typeof window !== 'undefined' ? require('@/firebase').firestore : null;
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function Home() {
 
   // Function to update the inventory
   const updateInventory = async () => {
+    if (!firestore) return;
     const snapshot = query(collection(firestore, 'pantry'));
     const docs = await getDocs(snapshot);
     const inventoryList = [];
@@ -25,6 +27,7 @@ export default function Home() {
   };
 
   const removeItem = async (item) => {
+    if (!firestore) return;
     const docRef = doc(collection(firestore, 'pantry'), item);
     const docSnap = await getDoc(docRef);
 
@@ -40,6 +43,7 @@ export default function Home() {
   };
 
   const addItem = async (item) => {
+    if (!firestore) return;
     const docRef = doc(collection(firestore, 'pantry'), item);
     const docSnap = await getDoc(docRef);
 
