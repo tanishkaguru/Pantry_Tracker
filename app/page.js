@@ -78,6 +78,8 @@ export default function Home() {
       justifyContent='start'
       alignItems='center'
       gap={2}
+      padding={2}
+      sx={{ '@media (max-width: 600px)': { padding: 1 } }}
     >
       <Modal
         open={open}
@@ -87,7 +89,7 @@ export default function Home() {
           position='absolute'
           top='50%'
           left="50%"
-          width={400}
+          width={'90%'}
           bgcolor="white"
           border="2px solid #000"
           boxShadow={24}
@@ -118,22 +120,33 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Box border="1px solid #903c91" margin={'40px auto 0'} >
+      <Box
+        margin={'40px auto 0'}
+        width='60%'
+      >
         <Box
-          width="800px"
+          width={'100%'}
           height="70px"
-          margin={"10px 10px"}
+          margin="10px"
           bgcolor="#9e429e"
           display="flex"
           alignItems="center"
           justifyContent={'center'}
         >
-          <Typography variant='h3' color='#ffffff' fontFamily={"Georgia"}>
+          <Typography 
+          sx={{ 
+          typography: { 
+          xs: 'h5', 
+          md: 'h4', 
+          lg: 'h3' 
+          } 
+          }}  
+          color='#ffffff' fontFamily={"Georgia"}>
             Pantry Items
           </Typography>
         </Box>
       </Box>
-      <Box width="50%" margin="10px auto">
+      <Box width={{ xs: '90%', sm: '50%' }} margin="10px auto">
         <TextField
           fullWidth
           variant='outlined'
@@ -146,11 +159,10 @@ export default function Home() {
         Add new Item
       </Button>
       <Stack
-        width='600px'
-        height='300px'
+        width={{ xs: '90%', sm: '600px' }}
+        maxHeight={'60vh'}
         spacing={2}
         overflow={"auto"}
-        
         marginTop={"10px"}
       >
         {filteredInventory.map(({ name, quantity }) => (
